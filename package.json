@@ -1,0 +1,25 @@
+{
+  "name": "@susisu/aprilfool2017",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint src --fix",
+    "build": "npm run build:release",
+    "build:debug": "NODE_ENV=development webpack -d",
+    "build:release": "NODE_ENV=production webpack",
+    "start": "NODE_ENV=development node app.js"
+  },
+  "author": "Susisu <susisu2413@yahoo.co.jp> (https://github.com/susisu)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.2.2",
+    "browser-sync": "^2.18.8",
+    "eslint": "^3.18.0",
+    "node-notifier": "^5.1.2",
+    "webpack": "^2.3.2",
+    "webpack-dev-middleware": "^1.10.1"
+  }
+}

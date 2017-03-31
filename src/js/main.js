@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 
 import Config from "./config.js";
+import Game from "./game.js";
 
 window.addEventListener("load", main);
 
@@ -22,4 +23,6 @@ function main() {
   if (wrapper) {
     wrapper.appendChild(app.view);
   }
+
+  window.game = new Game(app);
 }

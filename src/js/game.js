@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 
 import Config from "./config.js";
-import { Gene, Plankton } from "./plankton.js";
+import { Gene, Plankter } from "./plankton.js";
 
 const EDGE        = 32;
 const EDGE_FORCE  = 0.1;
@@ -19,8 +19,8 @@ export default class Game {
     this.bg.endFill();
     this.app.stage.addChild(this.bg);
 
-    this.planktons = [];
-    this.initPlanktons();
+    this.plankton = [];
+    this.initPlankton();
 
     this.app.ticker.add(() => {
       this.move();
@@ -30,112 +30,112 @@ export default class Game {
     this.app.stage.on("click", event => {
       const { x: mouseX, y: mouseY } = event.data.global;
       // attractive force to the mouse
-      for (let i = 0; i < this.planktons.length; i++) {
-        const plankton = this.planktons[i];
-        const distSq = (plankton.x - mouseX) ** 2 + (plankton.y - mouseY) ** 2;
+      for (let i = 0; i < this.plankton.length; i++) {
+        const plankter = this.plankton[i];
+        const distSq = (plankter.x - mouseX) ** 2 + (plankter.y - mouseY) ** 2;
         if (distSq > 0) {
           const f = MOUSE_FORCE;
           const t = Math.atan2(
-            mouseY - plankton.y,
-            mouseX - plankton.x
+            mouseY - plankter.y,
+            mouseX - plankter.x
           );
-          plankton.applyForce(f * plankton.mass, t);
+          plankter.applyForce(f * plankter.mass, t);
         }
       }
     });
   }
 
-  initPlanktons() {
+  initPlankton() {
     for (let i = 0; i < 5; i++) {
       const gene = Gene.random();
-      const plankton = Plankton.fromGene(
+      const plankter = Plankter.fromGene(
         gene,
         Math.random() * Config.canvasWidth,
         Math.random() * Config.canvasHeight,
         0,
         Math.random() * 2 * Math.PI
       );
-      if (plankton) {
-        this.app.stage.addChild(plankton);
-        this.planktons.push(plankton);
+      if (plankter) {
+        this.app.stage.addChild(plankter);
+        this.plankton.push(plankter);
       }
     }
   }
 
   move() {
-    for (let i = 0; i < this.planktons.length; i++) {
-      const plankton = this.planktons[i];
-      const alive = plankton.animate();
+    for (let i = 0; i < this.plankton.length; i++) {
+      const plankter = this.plankton[i];
+      const alive = plankter.animate();
       if (!alive) {
-        plankton.destroy();
-        this.planktons.splice(i, 1);
+        plankter.destroy();
+        this.plankton.splice(i, 1);
         i -= 1;
         continue;
       }
       // repulsive force from the edges
-      if (plankton.x < EDGE) {
-        plankton.applyForce(
-          EDGE_FORCE * (EDGE - plankton.x),
+      if (plankter.x < EDGE) {
+        plankter.applyForce(
+          EDGE_FORCE * (EDGE - plankter.x),
           0
         );
       }
-      else if (plankton.x >= Config.canvasWidth - EDGE) {
-        plankton.applyForce(
-          EDGE_FORCE * (plankton.x - (Config.canvasWidth - EDGE)),
+      else if (plankter.x >= Config.canvasWidth - EDGE) {
+        plankter.applyForce(
+          EDGE_FORCE * (plankter.x - (Config.canvasWidth - EDGE)),
           -Math.PI
         );
       }
-      if (plankton.y < EDGE) {
-        plankton.applyForce(
-          EDGE_FORCE * (EDGE - plankton.y),
+      if (plankter.y < EDGE) {
+        plankter.applyForce(
+          EDGE_FORCE * (EDGE - plankter.y),
           Math.PI / 2
         );
       }
-      else if (plankton.y >= Config.canvasHeight - EDGE) {
-        plankton.applyForce(
-          EDGE_FORCE * (plankton.y - (Config.canvasHeight - EDGE)),
+      else if (plankter.y >= Config.canvasHeight - EDGE) {
+        plankter.applyForce(
+          EDGE_FORCE * (plankter.y - (Config.canvasHeight - EDGE)),
           -Math.PI / 2
         );
       }
     }
     // interactions
-    for (let i = 0; i < this.planktons.length; i++) {
-      for (let j = i + 1; j < this.planktons.length; j++) {
-        const planktonA = this.planktons[i];
-        const planktonB = this.planktons[j];
-        const distSq = (planktonA.x - planktonB.x) ** 2
-          + (planktonA.y - planktonB.y) ** 2;
+    for (let i = 0; i < this.plankton.length; i++) {
+      for (let j = i + 1; j < this.plankton.length; j++) {
+        const plankterA = this.plankton[i];
+        const plankterB = this.plankton[j];
+        const distSq = (plankterA.x - plankterB.x) ** 2
+          + (plankterA.y - plankterB.y) ** 2;
         if (0 < distSq && distSq < 32 * 32) {
           const f = Math.min(INT_FORCE / distSq, 1);
           const t = Math.atan2(
-            planktonA.y - planktonB.y,
-            planktonA.x - planktonB.x
+            plankterA.y - plankterB.y,
+            plankterA.x - plankterB.x
           );
-          planktonA.applyForce(f, t);
-          planktonB.applyForce(f, -t);
+          plankterA.applyForce(f, t);
+          plankterB.applyForce(f, -t);
         }
       }
     }
     // cloning
-    if (this.planktons.length < 50) {
-      const len = this.planktons.length;
+    if (this.plankton.length < 50) {
+      const len = this.plankton.length;
       for (let i = 0; i < len; i++) {
-        const plankton = this.planktons[i];
-        if (plankton.isReproducible() && Math.random() < CLONE_RATE) {
-          const clone = this.planktons[i].clone();
+        const plankter = this.plankton[i];
+        if (plankter.isReproducible() && Math.random() < CLONE_RATE) {
+          const clone = this.plankton[i].clone();
           if (clone) {
             this.app.stage.addChild(clone);
-            this.planktons.push(clone);
-            if (this.planktons.length >= 50) {
+            this.plankton.push(clone);
+            if (this.plankton.length >= 50) {
               break;
             }
           }
         }
       }
     }
-    // re-initialize if there are no planktons
-    if (this.planktons.length === 0) {
-      this.initPlanktons();
+    // re-initialize if there are no plankton
+    if (this.plankton.length === 0) {
+      this.initPlankton();
     }
   }
 }

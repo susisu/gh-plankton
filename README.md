@@ -1,11 +1,11 @@
-# gh-planktons
-[Sometimes GitHub's default user-icon looks like a plankton...](https://susisu.github.io/gh-planktons)
+# gh-plankton
+[Sometimes GitHub's default user-icon looks like a plankter...](https://susisu.github.io/gh-plankton)
 
 ## Development
 ### Setup
 ``` shell
-git clone https://github.com/susisu/gh-planktons.git
-cd gh-planktons
+git clone https://github.com/susisu/gh-plankton.git
+cd gh-plankton
 npm install
 ```
 

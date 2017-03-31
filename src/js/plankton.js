@@ -77,7 +77,7 @@ export class Expression {
   }
 }
 
-export class Plankton extends PIXI.Container {
+export class Plankter extends PIXI.Container {
   constructor(gene, expr, x, y, v, angle) {
     super();
     this.gene = gene;
@@ -143,11 +143,11 @@ export class Plankton extends PIXI.Container {
     if (!expr) {
       return null;
     }
-    return new Plankton(gene, expr, x, y, v, angle);
+    return new Plankter(gene, expr, x, y, v, angle);
   }
 
   clone() {
-    return Plankton.fromGene(
+    return Plankter.fromGene(
       this.gene.mutate(),
       this.x,
       this.y,

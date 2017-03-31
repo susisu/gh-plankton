@@ -1,11 +1,4 @@
-function clip(value, min, max) {
-  return Math.min(Math.max(value, min), max);
-}
-
-function cycle(value, min, max) {
-  const c = max - min;
-  return ((value - min) % c + c) % c + min;
-}
+import { clip, cycle } from "./utils.js";
 
 export class RGB {
   constructor(r, g, b) {

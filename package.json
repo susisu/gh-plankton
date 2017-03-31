@@ -1,5 +1,5 @@
 {
-  "name": "@susisu/aprilfool2017",
+  "name": "@susisu/gh-plankton",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
@@ -14,6 +14,7 @@
     "start": "NODE_ENV=development node app.js"
   },
   "author": "Susisu <susisu2413@yahoo.co.jp> (https://github.com/susisu)",
+  "repository": "https://github.com/susisu/gh-plankton",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.24.0",

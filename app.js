@@ -29,7 +29,13 @@ bundler.plugin("done", stats => {
   if (stats.hasErrors() || stats.hasWarnings()) {
     notifier.notify({
       title  : "webpack",
-      message: `${stats.hash}\nBuild Error!`
+      message: `${stats.hash}\nBuild Failed!`
+    });
+  }
+  else {
+    notifier.notify({
+      title  : "webpack",
+      message: `${stats.hash}\nBuild Succeeded!`
     });
   }
 });

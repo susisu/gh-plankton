@@ -87,7 +87,9 @@ export class Plankton extends PIXI.Container {
     this.v     = v;
     this.angle = angle;
 
-    this.life = randomGaussian(1000, 500);
+    this.maxSize = expr.size * 2 + 2;
+
+    this.life = randomGaussian(1600, 500);
     this.time = 0;
 
     {
@@ -126,8 +128,7 @@ export class Plankton extends PIXI.Container {
           }
         }
       }
-      const size = expr.size * 2 + 2;
-      this.graphics.scale    = new PIXI.Point(size, size);
+      this.graphics.scale    = new PIXI.Point(0.5, 0.5);
       this.graphics.rotation = this.angle;
       this.graphics.alpha    = this.life < 100 ? this.life / 100 : 1;
     }
@@ -167,15 +168,18 @@ export class Plankton extends PIXI.Container {
       this.y += this.v * Math.sin(this.angle);
       this.v *= 0.75;
 
+      if (this.time % 8 === 0) {
+        this.v     = this.speed;
+        this.angle = this.angle + randomGaussian(0, Math.PI / 60);
+      }
+
       this.life -= 1;
       this.time += 1;
 
-      if (this.time >= 8) {
-        this.v     = this.speed;
-        this.angle = this.angle + randomGaussian(0, Math.PI / 60);
-        this.time  = 0;
-      }
-
+      const size = this.time < 500
+        ? this.maxSize * (0.5 + (this.time / 500) * 0.5)
+        : this.maxSize;
+      this.graphics.scale    = new PIXI.Point(size, size);
       this.graphics.rotation = this.angle;
       this.graphics.alpha    = this.life < 100 ? this.life / 100 : 1;
 
@@ -186,7 +190,7 @@ export class Plankton extends PIXI.Container {
     }
   }
 
-  isDying() {
-    return this.life < 100;
+  isReproducible() {
+    return this.time > 500 && this.life >= 100;
   }
 }

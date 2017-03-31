@@ -113,15 +113,17 @@ export default class Game {
       }
     }
     // cloning
-    for (let i = 0; i < this.planktons.length; i++) {
-      const plankton = this.planktons[i];
-      if (!plankton.isDying() && Math.random() < CLONE_RATE) {
-        const clone = this.planktons[i].clone();
-        if (clone) {
-          this.app.stage.addChild(clone);
-          this.planktons.push(clone);
-          if (this.planktons.length >= 50) {
-            break;
+    if (this.planktons.length < 50) {
+      for (let i = 0; i < this.planktons.length; i++) {
+        const plankton = this.planktons[i];
+        if (plankton.isReproducible() && Math.random() < CLONE_RATE) {
+          const clone = this.planktons[i].clone();
+          if (clone) {
+            this.app.stage.addChild(clone);
+            this.planktons.push(clone);
+            if (this.planktons.length >= 50) {
+              break;
+            }
           }
         }
       }

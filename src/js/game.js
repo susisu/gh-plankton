@@ -3,9 +3,10 @@ import * as PIXI from "pixi.js";
 import Config from "./config.js";
 import { Gene, Plankton } from "./plankton.js";
 
-const EDGE       = 32;
-const EDGE_FORCE = 0.1;
-const INT_FORCE  = 64;
+const EDGE        = 32;
+const EDGE_FORCE  = 0.1;
+const INT_FORCE   = 64;
+const MOUSE_FORCE = 480 ** 2;
 
 export default class Game {
   constructor(app) {
@@ -35,6 +36,24 @@ export default class Game {
 
     this.app.ticker.add(() => {
       this.move();
+    });
+
+    this.app.stage.interactive = true;
+    this.app.stage.on("click", event => {
+      const { x: mouseX, y: mouseY } = event.data.global;
+      // attractive force to the mouse
+      for (let i = 0; i < this.planktons.length; i++) {
+        const plankton = this.planktons[i];
+        const distSq = (plankton.x - mouseX) ** 2 + (plankton.y - mouseY) ** 2;
+        if (distSq > 0) {
+          const f = Math.min(MOUSE_FORCE / distSq, 1);
+          const t = Math.atan2(
+            mouseY - plankton.y,
+            mouseX - plankton.x
+          );
+          plankton.applyForce(f, t);
+        }
+      }
     });
   }
 

@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "npm run cp-prebuilt",
     "cp-prebuilt": "mkdirp app/js/prebuilt && npm-run-all cp-prebuilt:*",
+    "cp-prebuilt:pixijs": "cpr node_modules/pixi.js/dist/pixi.min.js app/js/prebuilt/pixi.min.js",
     "lint": "eslint src --fix",
     "build": "npm run build:release",
     "build:debug": "NODE_ENV=development webpack -d",
@@ -26,5 +27,8 @@
     "npm-run-all": "^4.0.2",
     "webpack": "^2.3.2",
     "webpack-dev-middleware": "^1.10.1"
+  },
+  "dependencies": {
+    "pixi.js": "^4.4.3"
   }
 }

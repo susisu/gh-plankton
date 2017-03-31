@@ -17,8 +17,10 @@ module.exports = {
     filename  : "js/build/[name].bundle.js",
     pathinfo  : !IS_PRODUCTION
   },
-  externals: {},
-  plugins  : IS_PRODUCTION
+  externals: {
+    "pixi.js": "PIXI"
+  },
+  plugins: IS_PRODUCTION
     ? [
       new webpack.NoEmitOnErrorsPlugin(),
       new webpack.optimize.UglifyJsPlugin()

@@ -1,5 +1,8 @@
 body {
   background-color: #FFFFFF;
+  text-align: center;
+  color: #303030;
+  font-size: 10pt;
 }
 
 #canvas-wrapper {
@@ -7,6 +10,11 @@ body {
   width: 480px;
   height: 480px;
   padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.twitter-tweet {
   margin-left: auto;
   margin-right: auto;
 }

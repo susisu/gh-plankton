@@ -87,7 +87,7 @@ export class Plankton extends PIXI.Container {
     this.v     = v;
     this.angle = angle;
 
-    this.life = randomGaussian(1000, 1000);
+    this.life = randomGaussian(1000, 500);
     this.time = 0;
 
     {

@@ -7,6 +7,7 @@ const EDGE        = 32;
 const EDGE_FORCE  = 0.1;
 const INT_FORCE   = 64;
 const MOUSE_FORCE = 1;
+const CLONE_RATE  = 0.0012;
 
 export default class Game {
   constructor(app) {
@@ -114,7 +115,7 @@ export default class Game {
     // cloning
     for (let i = 0; i < this.planktons.length; i++) {
       const plankton = this.planktons[i];
-      if (!plankton.isDying() && Math.random() < 0.001) {
+      if (!plankton.isDying() && Math.random() < CLONE_RATE) {
         const clone = this.planktons[i].clone();
         if (clone) {
           this.app.stage.addChild(clone);

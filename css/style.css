@@ -1,0 +1,21 @@
+body {
+  background-color: #FFFFFF;
+  text-align: center;
+  color: #303030;
+  font-size: 10pt;
+}
+
+#canvas-wrapper {
+  border: 1px solid #E8E8E8;
+  width: 480px;
+  height: 480px;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+}
+
+.twitter-tweet {
+  margin-left: auto;
+  margin-right: auto;
+}

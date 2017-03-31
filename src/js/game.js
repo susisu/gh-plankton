@@ -118,7 +118,8 @@ export default class Game {
     }
     // cloning
     if (this.planktons.length < 50) {
-      for (let i = 0; i < this.planktons.length; i++) {
+      const len = this.planktons.length;
+      for (let i = 0; i < len; i++) {
         const plankton = this.planktons[i];
         if (plankton.isReproducible() && Math.random() < CLONE_RATE) {
           const clone = this.planktons[i].clone();

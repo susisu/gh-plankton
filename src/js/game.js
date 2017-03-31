@@ -20,10 +20,10 @@ export default class Game {
     this.app.stage.addChild(this.bg);
 
     this.planktons = [];
-    const gene = Gene.random();
     for (let i = 0; i < 5; i++) {
+      const gene = Gene.random();
       const plankton = Plankton.fromGene(
-        gene.mutate(),
+        gene,
         Math.random() * Config.canvasWidth,
         Math.random() * Config.canvasHeight,
         0,

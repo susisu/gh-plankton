@@ -89,9 +89,6 @@ export class Plankton extends PIXI.Container {
 
     this.maxSize = expr.size * 2 + 2;
 
-    this.life = randomGaussian(1600, 500);
-    this.time = 0;
-
     {
       let s = 0;
       let m = 0;
@@ -100,9 +97,15 @@ export class Plankton extends PIXI.Container {
         s += (expr.blocks[i] ? (1 + expr.size) ** 2 : 0) * r;
         m += expr.blocks[i] ? (1 + expr.size) ** 2 : 0;
       }
-      this.speed = 4.0 / s;
+      this.speed = 4 / s;
       this.mass  = m;
     }
+
+    this.motionRatio = 20;
+
+    this.life   = randomGaussian(1600, 500);
+    this.time   = 0;
+    this.timing = Math.floor(Math.random() * this.motionRatio);
 
     // render
     this.graphics = new PIXI.Graphics();
@@ -166,9 +169,9 @@ export class Plankton extends PIXI.Container {
     if (this.life > 0) {
       this.x += this.v * Math.cos(this.angle);
       this.y += this.v * Math.sin(this.angle);
-      this.v *= 0.75;
+      this.v *= 0.9;
 
-      if (this.time % 8 === 0) {
+      if (this.time % this.motionRatio === this.timing) {
         this.v     = this.speed;
         this.angle = this.angle + randomGaussian(0, Math.PI / 60);
       }

@@ -7,7 +7,7 @@ const EDGE        = 32;
 const EDGE_FORCE  = 0.1;
 const INT_FORCE   = 64;
 const MOUSE_FORCE = 1;
-const CLONE_RATE  = 0.0012;
+const CLONE_RATE  = 0.0015;
 
 export default class Game {
   constructor(app) {

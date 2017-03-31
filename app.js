@@ -37,5 +37,6 @@ bundler.plugin("done", stats => {
       title  : "webpack",
       message: `${stats.hash}\nBuild Succeeded!`
     });
+    browserSync.reload();
   }
 });

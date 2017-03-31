@@ -6,7 +6,7 @@ import { Gene, Plankton } from "./plankton.js";
 const EDGE        = 32;
 const EDGE_FORCE  = 0.1;
 const INT_FORCE   = 64;
-const MOUSE_FORCE = 480 ** 2;
+const MOUSE_FORCE = 1;
 
 export default class Game {
   constructor(app) {
@@ -46,12 +46,12 @@ export default class Game {
         const plankton = this.planktons[i];
         const distSq = (plankton.x - mouseX) ** 2 + (plankton.y - mouseY) ** 2;
         if (distSq > 0) {
-          const f = Math.min(MOUSE_FORCE / distSq, 1);
+          const f = MOUSE_FORCE;
           const t = Math.atan2(
             mouseY - plankton.y,
             mouseX - plankton.x
           );
-          plankton.applyForce(f, t);
+          plankton.applyForce(f * plankton.mass, t);
         }
       }
     });

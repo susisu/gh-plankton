@@ -20,20 +20,7 @@ export default class Game {
     this.app.stage.addChild(this.bg);
 
     this.planktons = [];
-    for (let i = 0; i < 5; i++) {
-      const gene = Gene.random();
-      const plankton = Plankton.fromGene(
-        gene,
-        Math.random() * Config.canvasWidth,
-        Math.random() * Config.canvasHeight,
-        0,
-        Math.random() * 2 * Math.PI
-      );
-      if (plankton) {
-        this.app.stage.addChild(plankton);
-        this.planktons.push(plankton);
-      }
-    }
+    this.initPlanktons();
 
     this.app.ticker.add(() => {
       this.move();
@@ -56,6 +43,23 @@ export default class Game {
         }
       }
     });
+  }
+
+  initPlanktons() {
+    for (let i = 0; i < 5; i++) {
+      const gene = Gene.random();
+      const plankton = Plankton.fromGene(
+        gene,
+        Math.random() * Config.canvasWidth,
+        Math.random() * Config.canvasHeight,
+        0,
+        Math.random() * 2 * Math.PI
+      );
+      if (plankton) {
+        this.app.stage.addChild(plankton);
+        this.planktons.push(plankton);
+      }
+    }
   }
 
   move() {
@@ -127,6 +131,10 @@ export default class Game {
           }
         }
       }
+    }
+    // re-initialize if there are no planktons
+    if (this.planktons.length === 0) {
+      this.initPlanktons();
     }
   }
 }

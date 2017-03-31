@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path      : path.resolve(__dirname, "app"),
     publicPath: "/",
-    filename  : "build/js/[name].bundle.js",
+    filename  : "js/build/[name].bundle.js",
     pathinfo  : !IS_PRODUCTION
   },
   externals: {},

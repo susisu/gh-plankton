@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm run cp-prebuilt",
+    "cp-prebuilt": "mkdirp app/js/prebuilt && npm-run-all cp-prebuilt:*",
     "lint": "eslint src --fix",
     "build": "npm run build:release",
     "build:debug": "NODE_ENV=development webpack -d",
@@ -17,8 +19,11 @@
     "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.2.2",
     "browser-sync": "^2.18.8",
+    "cpr": "^2.0.2",
     "eslint": "^3.18.0",
+    "mkdirp": "^0.5.1",
     "node-notifier": "^5.1.2",
+    "npm-run-all": "^4.0.2",
     "webpack": "^2.3.2",
     "webpack-dev-middleware": "^1.10.1"
   }

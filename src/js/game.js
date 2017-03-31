@@ -43,7 +43,7 @@ export default class Game {
       const plankton = this.planktons[i];
       const alive = plankton.animate();
       if (!alive) {
-        this.app.stage.removeChild(plankton);
+        plankton.destroy();
         this.planktons.splice(i, 1);
         i -= 1;
         continue;

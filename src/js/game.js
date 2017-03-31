@@ -114,7 +114,7 @@ export default class Game {
     // cloning
     for (let i = 0; i < this.planktons.length; i++) {
       const plankton = this.planktons[i];
-      if (plankton.life >= 100 && Math.random() < 0.001) {
+      if (!plankton.isDying() && Math.random() < 0.001) {
         const clone = this.planktons[i].clone();
         if (clone) {
           this.app.stage.addChild(clone);

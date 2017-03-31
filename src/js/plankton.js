@@ -185,4 +185,8 @@ export class Plankton extends PIXI.Container {
       return false;
     }
   }
+
+  isDying() {
+    return this.life < 100;
+  }
 }

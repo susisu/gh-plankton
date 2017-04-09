@@ -3,11 +3,12 @@ import * as PIXI from "pixi.js";
 import Config from "./config.js";
 import { Gene, Plankter } from "./plankton.js";
 
-const EDGE        = 32;
-const EDGE_FORCE  = 0.1;
-const INT_FORCE   = 64;
-const MOUSE_FORCE = 1;
-const CLONE_RATE  = 0.0015;
+const EDGE         = 32;
+const EDGE_FORCE   = 0.1;
+const INT_FORCE    = 64;
+const MOUSE_FORCE  = 1;
+const MOUSE_RADIUS = 64;
+const CLONE_RATE   = 0.0015;
 
 export default class Game {
   constructor(app) {
@@ -33,7 +34,7 @@ export default class Game {
       for (let i = 0; i < this.plankton.length; i++) {
         const plankter = this.plankton[i];
         const distSq = (plankter.x - mouseX) ** 2 + (plankter.y - mouseY) ** 2;
-        if (distSq > 0) {
+        if (0 < distSq && distSq < MOUSE_RADIUS ** 2) {
           const f = MOUSE_FORCE;
           const t = Math.atan2(
             mouseY - plankter.y,
